@@ -1,5 +1,7 @@
 # pr-review-discipline
 
+![pr-review-discipline banner](assets/banner.png)
+
 An AI agent skill for disciplined pull-request review and merge decisions.
 
 Approval-first workflow: issues get an explicit human approval before implementation, community PRs are reviewed before opening your own, and every merge decision runs a five-fold evaluation (problem–solution fit, over-engineering, side-effects, user QoL guard, shrinkability) plus an evidenced cost balance — handed to the human as a pros/cons package. The merge decision is always the human's.

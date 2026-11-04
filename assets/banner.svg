@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="pr-review-discipline banner: approval-first review, five gates before every merge, the decision is the human's">
+  <defs>
+    <radialGradient id="glow-tr" cx="0.82" cy="-0.1" r="0.8">
+      <stop offset="0" stop-color="#d4a24a" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#d4a24a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-bl" cx="0" cy="1.1" r="0.7">
+      <stop offset="0" stop-color="#d4a24a" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#d4a24a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1280" height="640" fill="#101014"/>
+  <rect width="1280" height="640" fill="url(#glow-tr)"/>
+  <rect width="1280" height="640" fill="url(#glow-bl)"/>
+
+  <!-- rotated stamp: merge = human -->
+  <g transform="translate(1044 88) rotate(6)" opacity="0.9">
+    <rect x="-118" y="-22" width="236" height="40" rx="6" fill="none" stroke="#9a3b2e" stroke-width="2"/>
+    <line x1="-128" y1="2" x2="128" y2="-8" stroke="#c96a58" stroke-opacity="0.5" stroke-width="2"/>
+    <text x="0" y="6" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" letter-spacing="4.5" fill="#c96a58">MERGE = HUMAN</text>
+  </g>
+
+  <!-- kicker -->
+  <text x="72" y="96" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="15" letter-spacing="8.5" fill="#d4a24a">GENTLE · AGENT SKILL · DECODE2</text>
+
+  <!-- title -->
+  <text x="68" y="196" font-family="ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif" font-size="76" font-weight="700" letter-spacing="-1.5" fill="#f2f0ea">pr-review-<tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-weight="600" fill="#d4a24a">discipline</tspan></text>
+
+  <!-- tagline -->
+  <text x="72" y="258" font-family="ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif" font-size="22" fill="#b8b4a9">Approval-first review. <tspan font-weight="600" fill="#f2f0ea">Five gates</tspan> before every merge. Costs named,</text>
+  <text x="72" y="291" font-family="ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif" font-size="22" fill="#b8b4a9">both sides argued — <tspan font-weight="600" fill="#f2f0ea">the verdict is a package, the decision is the human's.</tspan></text>
+
+  <!-- the five gates -->
+  <g font-family="ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif">
+    <g>
+      <rect x="72" y="464" width="216" height="92" rx="10" fill="#d4a24a" fill-opacity="0.05" stroke="#d4a24a" stroke-opacity="0.35"/>
+      <text x="92" y="500" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" letter-spacing="1.6" fill="#d4a24a">01</text>
+      <text x="92" y="530" font-size="16" font-weight="600" fill="#f2f0ea">Problem–solution fit</text>
+    </g>
+    <g>
+      <rect x="302" y="464" width="216" height="92" rx="10" fill="#d4a24a" fill-opacity="0.05" stroke="#d4a24a" stroke-opacity="0.35"/>
+      <text x="322" y="500" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" letter-spacing="1.6" fill="#d4a24a">02</text>
+      <text x="322" y="530" font-size="16" font-weight="600" fill="#f2f0ea">Over-engineering</text>
+    </g>
+    <g>
+      <rect x="532" y="464" width="216" height="92" rx="10" fill="#d4a24a" fill-opacity="0.05" stroke="#d4a24a" stroke-opacity="0.35"/>
+      <text x="552" y="500" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" letter-spacing="1.6" fill="#d4a24a">03</text>
+      <text x="552" y="530" font-size="16" font-weight="600" fill="#f2f0ea">Side-effects</text>
+    </g>
+    <g>
+      <rect x="762" y="464" width="216" height="92" rx="10" fill="#d4a24a" fill-opacity="0.05" stroke="#d4a24a" stroke-opacity="0.35"/>
+      <text x="782" y="500" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" letter-spacing="1.6" fill="#d4a24a">04</text>
+      <text x="782" y="530" font-size="16" font-weight="600" fill="#f2f0ea">User QoL guard</text>
+    </g>
+    <g>
+      <rect x="992" y="464" width="216" height="92" rx="10" fill="#d4a24a" fill-opacity="0.05" stroke="#d4a24a" stroke-opacity="0.35"/>
+      <text x="1012" y="500" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" letter-spacing="1.6" fill="#d4a24a">05</text>
+      <text x="1012" y="530" font-size="16" font-weight="600" fill="#f2f0ea">Shrinkability</text>
+    </g>
+  </g>
+</svg>
