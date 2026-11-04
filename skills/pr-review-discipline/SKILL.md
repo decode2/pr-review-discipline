@@ -1,59 +1,61 @@
 ---
 name: pr-review-discipline
-description: "Trigger: auditar PR, revisar PR o diff, evaluar solución, abrir/crear PR, push, merge, aprobar issue, status:approved, PRs de la comunidad, fijate este cambio. Approval-first, cinco-vías, QoL, achicabilidad y costos antes de push y merge."
+description: "Trigger: auditar PR, revisar diff, antes de push, PR o merge, aprobar issue, status:approved. Approval-first, cinco-vías, QoL, achicabilidad, costos. / Audit a PR or diff, before push or merge. Five-fold review, QoL, costed verdicts."
 license: Apache-2.0
 metadata:
-  author: "Gentleman-Programming"
-  version: "1.5"
+  author: "decode2"
+  version: "1.6"
 ---
 
-## Activation Contract
+## Activation Contract / Contrato de activación
 
-Load when auditing, reviewing, or evaluating ANY PR or solution pushable to a repository — however the request is phrased ("fijate este cambio", "mirá el diff", "qué opinas") — and before ANY push of own work, PR creation, merge decision, or `status:approved`. If code is about to reach a shared repository, this skill is already active: say so out loud and run its gates.
+Load when auditing, reviewing, or evaluating ANY PR or diff pushable to a repository — however the request is phrased ("fijate este cambio", "mirá el diff", "qué opinas") — and before ANY push of own work, PR creation, merge decision, or `status:approved`. If code is about to reach a shared repository, this skill is already active: say so out loud and run its gates.
 
-## Hard Rules
+Se activa al auditar, revisar o evaluar CUALQUIER PR o diff que pueda llegar a un repositorio — como sea que se pida ("fijate este cambio", "mirá el diff", "qué opinas") — y antes de CUALQUIER push de trabajo propio, creación de PR, decisión de merge o `status:approved`. Si el código está por llegar a un repositorio compartido, este skill ya está activo: decilo en voz alta y corré sus compuertas.
 
-- **Approval precedes work.** An issue without `status:approved` gets an approval evaluation FIRST (reproduction, root cause, scope) and an explicit human decision BEFORE implementing. Never self-approve your own fresh issue to unblock your own PR.
-- **Community PRs before own PRs.** Before creating a PR for an issue, search open PRs (all authors) touching it or its files; review and coordinate there first. Open your own only when none covers the need or the author declines theirs.
-- **Judge the solution, never the CI.** Green checks are necessary, never sufficient. "Funciona lo que hicieron" is not a merge reason.
-- **No fix may create a worse product.** Solving the stated problem while degrading defaults, flow, latency, or error quality is not done.
-- **Every fix lands at its smallest honest shape.** Diff weight the fix does not need is requested out before merge, hunks named.
-- **Every verdict is a balanced, costed package.** Reasons FOR and AGAINST accepting, with the cost on each axis, are mandatory — even for clear calls. A reject without a proposed more appropriate solution is incomplete.
+## Hard Rules / Reglas duras
 
-## Evaluation Method (summary)
+- **Approval precedes work.** An issue without `status:approved` gets an approval evaluation FIRST and an explicit human decision BEFORE implementing. Never self-approve your own fresh issue. / **La aprobación precede al trabajo.** Un issue sin `status:approved` recibe PRIMERO la evaluación de aprobación y una decisión humana explícita ANTES de implementar. Nunca te auto-apruebes un issue propio.
+- **Community PRs before own PRs.** Before creating a PR for an issue, search open PRs (all authors) touching it or its files; review and coordinate there first. / **PRs de la comunidad antes que los propios.** Antes de crear un PR para un issue, buscá PRs abiertos (de cualquier autor) que lo toquen; revisá y coordiná allí primero.
+- **Judge the solution, never the CI.** Green checks are necessary, never sufficient. / **Juzgá la solución, nunca el CI.** Los checks verdes son necesarios, nunca suficientes.
+- **No fix may create a worse product.** Degrading defaults, flow, latency, or error quality is not done. / **Ningún arreglo puede crear un producto peor.** Degradar defaults, flujo, latencia o calidad de errores no está permitido.
+- **Every fix lands at its smallest honest shape.** Unneeded diff weight is requested out before merge, hunks named. / **Todo arreglo llega a su forma honesta más pequeña.** El peso de diff innecesario se pide fuera antes del merge, con hunks nombrados.
+- **Every verdict is a balanced, costed package.** Reasons FOR and AGAINST, both mandatory, even for clear calls. A reject without a proposed better solution is incomplete. / **Todo veredicto es un paquete balanceado y costeado.** Razones a FAVOR y en CONTRA, ambas obligatorias, incluso en llamadas claras. Un rechazo sin solución mejor propuesta está incompleto.
 
-Before merge, run the five-fold evaluation and the cost balance in full. The complete methodology — evidence requirements, per-item evaluation questions, and the verdict-package format — lives in `references/five-fold-evaluation.md`.
+## Evaluation Method / Método de evaluación
 
-1. **Problem–solution fit.** Reproduce the claimed problem, apply the PR, verify it is gone — on a fresh PR-head build.
-2. **Over-engineering.** Solution architecture must not exceed the problem (states, flags, abstractions, a second mechanism beside an existing one).
-3. **Side-effects.** Name every behavior added beyond the fix, then evaluate each: negative, neutral, or beneficial — propose concrete removal, hunks named.
-4. **User QoL guard.** Before/after as a USER: defaults, prompts, waits, self-service, error actionability.
-5. **Shrinkability.** Smallest honest shape: duplicated logic, dead parameters, speculative generality, footprint wider than the root cause.
+Before merge, run the five-fold evaluation and the cost balance in full — methodology in `references/five-fold-evaluation.md`. / Antes del merge, corré la evaluación de cinco vías y el balance de costos completos — metodología en `references/five-fold-evaluation.md`.
 
-Then the **cost balance**: evidenced costs on system, user, and product axes, and a verdict package with reasons FOR and AGAINST — both mandatory — handed to the human.
+1. **Problem–solution fit.** Reproduce the problem, apply the PR, verify it is gone. / **Ajuste problema–solución.** Reproducí el problema, aplicá el PR, verificá que desapareció.
+2. **Over-engineering.** Architecture must not exceed the problem. / **Sobre-ingeniería.** La arquitectura no debe exceder el problema.
+3. **Side-effects.** Name each behavior added, then evaluate it; propose removal hunks-named. / **Efectos secundarios.** Nombrá cada comportamiento agregado y evalualo; proponé remoción con hunks nombrados.
+4. **User QoL guard.** Before/after as a USER: defaults, prompts, waits, errors. / **Guardia de QoL.** Antes/después como USUARIO: defaults, prompts, esperas, errores.
+5. **Shrinkability.** Smallest honest shape: duplicated logic, dead parameters, speculative generality. / **Achicabilidad.** La forma honesta más pequeña: lógica duplicada, parámetros muertos, generalidad especulativa.
 
-## Decision Gates
+Then the **cost balance**: evidenced costs on system, user, and product axes; verdict package with reasons FOR and AGAINST — both mandatory — for the human. / Luego el **balance de costos**: costos evidenciados en ejes sistema, usuario y producto; paquete de veredicto con razones a FAVOR y en CONTRA — ambas obligatorias — para el humano.
 
-| Situation | Action |
+## Decision Gates / Compuertas de decisión
+
+| Situation / Situación | Action / Acción |
 |---|---|
-| Issue lacks `status:approved`, work requested | Present approval case → wait for explicit approval |
-| Own issue, own PR, label added by self | Stop: the approval is void; route to the human |
-| Open community PR covers the same issue/files | Review and coordinate there first |
-| PR cannot demonstrate its claimed fix | Reject as ineffective — with the proposed better way |
-| Machinery beyond the problem, QoL regression, shrinkable fat | Request the change hunks-named; reject on insistence |
-| Works and fits, but a simpler design exists | Request it; supersede only on the author's decline |
+| Issue lacks `status:approved` / Issue sin `status:approved` | Present approval case → wait for explicit approval / Presentar el caso → esperar aprobación explícita |
+| Own issue, own PR, self-added label / Issue propio, PR propio, label auto-agregada | Stop: approval is void; route to the human / Detener: la aprobación es nula; escalar al humano |
+| Open community PR covers the same files / PR comunitario abierto cubre los mismos archivos | Review and coordinate there first / Revisar y coordinar allí primero |
+| PR cannot demonstrate its fix / El PR no puede demostrar su arreglo | Reject as ineffective, with the better way / Rechazar como inefectivo, con la vía mejor |
+| Machinery beyond problem, QoL regression, shrinkable fat / Maquinaria de más, regresión de QoL, grasa achicable | Request change hunks-named; reject on insistence / Pedir el cambio con hunks; rechazar si insiste |
+| Works, but a simpler design exists / Funciona, pero existe un diseño más simple | Request it; supersede only on author's decline / Pedirlo; imponer solo si el autor declina |
 
-## Execution Steps
+## Execution Steps / Pasos de ejecución
 
-1. **Before work**: verify `status:approved`; if absent, write the approval case and obtain explicit approval. Record who approved and when.
-2. **Before PR**: search open community PRs on the issue and its files; review those first.
-3. **Before merge**: run the five-fold evaluation plus the cost balance in writing; hand the pros/cons package to the human; merge only on their explicit approval, with ideal-or-improved and green checks.
-4. **After merge**: confirm the issue closed, the class tracked, and the user-facing behavior improved as claimed.
+1. **Before work / Antes de trabajar**: verify `status:approved`; if absent, write the approval case, obtain explicit approval, record who and when. / verificá `status:approved`; si falta, escribí el caso de aprobación, obtené aprobación explícita, registrá quién y cuándo.
+2. **Before PR / Antes del PR**: search open community PRs on the issue and its files; review those first. / buscá PRs comunitarios abiertos sobre el issue y sus archivos; revisá esos primero.
+3. **Before merge / Antes del merge**: run the five-fold evaluation plus cost balance in writing; hand the pros/cons package to the human; merge only on explicit approval. / corré la evaluación de cinco vías más el balance de costos por escrito; entregá el paquete de pros/contras al humano; merge solo con aprobación explícita.
+4. **After merge / Después del merge**: confirm the issue closed, the class tracked, the user-facing behavior improved. / confirmá el issue cerrado, la clase rastreada, el comportamiento de usuario mejorado.
 
-## Output Contract
+## Output Contract / Contrato de salida
 
-Return: approval state and approver; community-PR search result; the five-fold evaluation; the cost balance; the pros/cons lists; on reject, the proposed better way. The merge decision is the human's.
+Return: approval state and approver; community-PR search result; five-fold evaluation; cost balance; pros/cons lists; on reject, the proposed better way. The merge decision is the human's. / Devolver: estado de aprobación y aprobador; resultado de búsqueda de PRs comunitarios; evaluación de cinco vías; balance de costos; listas de pros/contras; en rechazo, la vía mejor propuesta. La decisión de merge es del humano.
 
-## References
+## References / Referencias
 
-- `references/five-fold-evaluation.md` — full five-fold evaluation and verdict-package methodology.
+- `references/five-fold-evaluation.md` — full methodology / metodología completa.

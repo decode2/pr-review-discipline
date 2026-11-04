@@ -16,23 +16,25 @@ npx skills add decode2/pr-review-discipline
 
 ```
 skills/pr-review-discipline/
-├── SKILL.md                              # runtime instruction contract
+├── SKILL.md                              # runtime instruction contract (EN/ES)
 └── references/
-    └── five-fold-evaluation.md           # full pre-merge methodology
+    └── five-fold-evaluation.md           # full pre-merge methodology (EN/ES)
 ```
 
-## What it enforces
+## Qué aplica / What it enforces
 
-- Approval precedes work — no self-approving your own issue to unblock your own PR.
-- Community PRs before own PRs — review and coordinate there first.
-- Judge the solution, never the CI — green checks are necessary, never sufficient.
-- No fix may create a worse product — QoL regressions are argued or reverted.
-- Every fix lands at its smallest honest shape — shrink requests are hunks-named.
-- Every verdict is a balanced, costed package — reasons FOR and AGAINST, costs on system/user/product axes, and a proposed better way on reject.
+- Approval precedes work / La aprobación precede al trabajo — no self-approving your own issue to unblock your own PR.
+- Community PRs before own PRs / PRs comunitarios antes que los propios — review and coordinate there first.
+- Judge the solution, never the CI / Juzgá la solución, nunca el CI — green checks are necessary, never sufficient.
+- No fix may create a worse product / Ningún arreglo crea un producto peor — QoL regressions are argued or reverted.
+- Every fix lands at its smallest honest shape / Todo arreglo llega a su forma más pequeña — shrink requests are hunks-named.
+- Every verdict is a balanced, costed package / Todo veredicto es un paquete costeado — reasons FOR and AGAINST, costs on system/user/product axes, and a proposed better way on reject.
 
-## Companion skills
+## Compatibilidad / Compatibility
 
-Works alongside `systemic-issue-triage` (root-class grouping, over-engineering gate) and `branch-pr` (mechanical PR creation after these gates pass), available in the [Gentleman-Programming](https://github.com/Gentleman-Programming) skill collections.
+The skill instructions are written in English and Spanish — agents can run it from either language. Triggers cover both ("auditar PR", "fijate este cambio", "audit a PR", "review this diff").
+
+Designed for the Gentle skill format (Activation Contract, Hard Rules, Decision Gates); works in Gentle Shell and any agent runtime that loads `SKILL.md` skills. Pairs naturally with `systemic-issue-triage` (root-class grouping, over-engineering gate) and `branch-pr` (mechanical PR creation after these gates pass).
 
 ## License
 
