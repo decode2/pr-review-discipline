@@ -4,7 +4,9 @@
 
 An AI agent skill for disciplined pull-request review and merge decisions.
 
-Approval-first workflow: issues get an explicit human approval before implementation, community PRs are reviewed before opening your own, and every merge decision runs a six-fold evaluation (problem–solution fit, over-engineering, side-effects, user QoL guard, shrinkability, test value) plus an evidenced cost balance — handed to the human as a pros/cons package. The merge decision is always the human's.
+Every merge decision runs a six-fold evaluation (problem–solution fit, over-engineering, side-effects, user QoL guard, shrinkability, test value) plus an evidenced cost balance — handed to the human as a pros/cons package. The merge decision is always the human's.
+
+For repositories that run an issue-first workflow (for example, Gentleman Programming repos), two optional gates also apply: issues get an explicit human approval before implementation, and open community PRs are reviewed before opening your own. The skill detects whether the repo works that way (`status:approved` labels, CONTRIBUTING or PR-template rules, outside contributors) and skips those gates in private or single-maintainer repos, saying so in its output.
 
 ## Install
 
@@ -23,8 +25,8 @@ skills/pr-review-discipline/
 
 ## Qué aplica / What it enforces
 
-- Approval precedes work / La aprobación precede al trabajo — no self-approving your own issue to unblock your own PR.
-- Community PRs before own PRs / PRs comunitarios antes que los propios — review and coordinate there first.
+- Approval precedes work / La aprobación precede al trabajo (optional / opcional) — in issue-first repos, no self-approving your own issue to unblock your own PR.
+- Community PRs before own PRs / PRs comunitarios antes que los propios (optional / opcional) — in repos with outside contributors, review and coordinate there first.
 - Judge the solution, never the CI / Juzgá la solución, nunca el CI — green checks are necessary, never sufficient.
 - No fix may create a worse product / Ningún arreglo crea un producto peor — QoL regressions are argued or reverted.
 - Every fix lands at its smallest honest shape / Todo arreglo llega a su forma más pequeña — shrink requests are hunks-named.
@@ -35,7 +37,7 @@ skills/pr-review-discipline/
 
 The skill instructions are written in English and Spanish — agents can run it from either language. Triggers cover both ("auditar PR", "fijate este cambio", "audit a PR", "review this diff").
 
-Designed for the Gentle skill format (Activation Contract, Hard Rules, Decision Gates); works in Gentle Shell and any agent runtime that loads `SKILL.md` skills. Pairs naturally with `systemic-issue-triage` (root-class grouping, over-engineering gate) and `branch-pr` (mechanical PR creation after these gates pass).
+Designed for the Gentle skill format (Activation Contract, Workflow Detection, Hard Rules, Decision Gates); works in Gentle Shell and any agent runtime that loads `SKILL.md` skills. Pairs naturally with `systemic-issue-triage` (root-class grouping, over-engineering gate) and `branch-pr` (mechanical PR creation after these gates pass).
 
 ## License
 
