@@ -1,10 +1,10 @@
 ---
 name: pr-review-discipline
-description: "Trigger: auditar PR, revisar diff, antes de push, PR o merge, aprobar issue, status:approved. Approval-first, seis-vías, QoL, achicabilidad, valor de tests, costos. / Audit a PR or diff, before push or merge. Six-fold review, QoL, test value, costed verdicts."
+description: "Trigger: auditar PR, revisar diff, antes de push, PR o merge, aprobar issue, status:approved. Aprobación opcional, seis-vías, QoL, achicabilidad, valor de tests, costos. / Audit a PR or diff, before push or merge. Six-fold review, QoL, test value, costed verdicts, optional approval gates."
 license: Apache-2.0
 metadata:
   author: "decode2"
-  version: "1.7"
+  version: "1.8"
 ---
 
 ## Activation Contract / Contrato de activación
@@ -13,10 +13,18 @@ Load when auditing, reviewing, or evaluating ANY PR or diff pushable to a reposi
 
 Se activa al auditar, revisar o evaluar CUALQUIER PR o diff que pueda llegar a un repositorio — como sea que se pida ("fijate este cambio", "mirá el diff", "qué opinas") — y antes de CUALQUIER push de trabajo propio, creación de PR, decisión de merge o `status:approved`. Si el código está por llegar a un repositorio compartido, este skill ya está activo: decilo en voz alta y corré sus compuertas.
 
+## Workflow Detection / Detección de flujo
+
+Two gates are optional: they apply only when the repository works that way. Detect it before the first gate, state the result, and skip what does not apply. / Dos compuertas son opcionales: aplican solo cuando el repositorio trabaja así. Detectalo antes de la primera compuerta, declaralo y omití lo que no aplique.
+
+- **Approval gate / Compuerta de aprobación** — applies when the repo runs issue-first approval: a `status:approved` (or equivalent) label exists, or CONTRIBUTING, the PR template, or CI requires a linked approved issue, or the human asks for it. / aplica cuando el repo trabaja con aprobación de issue primero: existe un label `status:approved` (o equivalente), o CONTRIBUTING, la plantilla de PR o el CI exigen un issue aprobado vinculado, o el humano lo pide.
+- **Community-PR gate / Compuerta de PRs comunitarios** — applies when the repo takes outside contributions: it is public and has open or recent PRs from other authors, or the human asks for it. Private or single-maintainer repos skip it. / aplica cuando el repo recibe contribuciones externas: es público y tiene PRs abiertos o recientes de otros autores, o el humano lo pide. Los repos privados o de un solo mantenedor la omiten.
+- **Unclear evidence / Evidencia dudosa** — ask the human once; never block work on a gate the repo does not use. / preguntale una vez al humano; nunca bloquees el trabajo con una compuerta que el repo no usa.
+
 ## Hard Rules / Reglas duras
 
-- **Approval precedes work.** An issue without `status:approved` gets an approval evaluation FIRST and an explicit human decision BEFORE implementing. Never self-approve your own fresh issue. / **La aprobación precede al trabajo.** Un issue sin `status:approved` recibe PRIMERO la evaluación de aprobación y una decisión humana explícita ANTES de implementar. Nunca te auto-apruebes un issue propio.
-- **Community PRs before own PRs.** Before creating a PR for an issue, search open PRs (all authors) touching it or its files; review and coordinate there first. / **PRs de la comunidad antes que los propios.** Antes de crear un PR para un issue, buscá PRs abiertos (de cualquier autor) que lo toquen; revisá y coordiná allí primero.
+- **Approval precedes work (when the approval gate applies).** An issue without `status:approved` gets an approval evaluation FIRST and an explicit human decision BEFORE implementing. Never self-approve your own fresh issue. / **La aprobación precede al trabajo (cuando aplica la compuerta de aprobación).** Un issue sin `status:approved` recibe PRIMERO la evaluación de aprobación y una decisión humana explícita ANTES de implementar. Nunca te auto-apruebes un issue propio.
+- **Community PRs before own PRs (when the community-PR gate applies).** Before creating a PR for an issue, search open PRs (all authors) touching it or its files; review and coordinate there first. / **PRs de la comunidad antes que los propios (cuando aplica la compuerta de PRs comunitarios).** Antes de crear un PR para un issue, buscá PRs abiertos (de cualquier autor) que lo toquen; revisá y coordiná allí primero.
 - **Judge the solution, never the CI.** Green checks are necessary, never sufficient. / **Juzgá la solución, nunca el CI.** Los checks verdes son necesarios, nunca suficientes.
 - **No fix may create a worse product.** Degrading defaults, flow, latency, or error quality is not done. / **Ningún arreglo puede crear un producto peor.** Degradar defaults, flujo, latencia o calidad de errores no está permitido.
 - **Every fix lands at its smallest honest shape.** Unneeded diff weight is requested out before merge, hunks named. / **Todo arreglo llega a su forma honesta más pequeña.** El peso de diff innecesario se pide fuera antes del merge, con hunks nombrados.
@@ -40,9 +48,10 @@ Then the **cost balance**: evidenced costs on system, user, and product axes; ve
 
 | Situation / Situación | Action / Acción |
 |---|---|
-| Issue lacks `status:approved` / Issue sin `status:approved` | Present approval case → wait for explicit approval / Presentar el caso → esperar aprobación explícita |
-| Own issue, own PR, self-added label / Issue propio, PR propio, label auto-agregada | Stop: approval is void; route to the human / Detener: la aprobación es nula; escalar al humano |
-| Open community PR covers the same files / PR comunitario abierto cubre los mismos archivos | Review and coordinate there first / Revisar y coordinar allí primero |
+| Repo does not use an optional gate / El repo no usa una compuerta opcional | Skip it and say why in the output / Omitirla y decir por qué en la salida |
+| Approval gate applies, issue lacks `status:approved` / Aplica aprobación, issue sin `status:approved` | Present approval case → wait for explicit approval / Presentar el caso → esperar aprobación explícita |
+| Approval gate applies: own issue, own PR, self-added label / Aplica aprobación: issue propio, PR propio, label auto-agregada | Stop: approval is void; route to the human / Detener: la aprobación es nula; escalar al humano |
+| Community-PR gate applies, open PR covers the same files / Aplica PRs comunitarios, PR abierto cubre los mismos archivos | Review and coordinate there first / Revisar y coordinar allí primero |
 | PR cannot demonstrate its fix / El PR no puede demostrar su arreglo | Reject as ineffective, with the better way / Rechazar como inefectivo, con la vía mejor |
 | Machinery beyond problem, QoL regression, shrinkable fat / Maquinaria de más, regresión de QoL, grasa achicable | Request change hunks-named; reject on insistence / Pedir el cambio con hunks; rechazar si insiste |
 | Change lacks the tests the repo's criteria require / Al cambio le faltan los tests que exige el criterio del repo | Request them, naming the behaviors to cover / Pedirlos, nombrando los comportamientos a cubrir |
@@ -51,14 +60,15 @@ Then the **cost balance**: evidenced costs on system, user, and product axes; ve
 
 ## Execution Steps / Pasos de ejecución
 
-1. **Before work / Antes de trabajar**: verify `status:approved`; if absent, write the approval case, obtain explicit approval, record who and when. / verificá `status:approved`; si falta, escribí el caso de aprobación, obtené aprobación explícita, registrá quién y cuándo.
-2. **Before PR / Antes del PR**: search open community PRs on the issue and its files; review those first. / buscá PRs comunitarios abiertos sobre el issue y sus archivos; revisá esos primero.
+0. **Detect workflow / Detectar flujo**: decide which optional gates apply (see Workflow Detection) and state it. / decidí qué compuertas opcionales aplican (ver Detección de flujo) y declaralo.
+1. **Before work / Antes de trabajar** (approval gate only / solo con compuerta de aprobación): verify `status:approved`; if absent, write the approval case, obtain explicit approval, record who and when. / verificá `status:approved`; si falta, escribí el caso de aprobación, obtené aprobación explícita, registrá quién y cuándo.
+2. **Before PR / Antes del PR** (community-PR gate only / solo con compuerta de PRs comunitarios): search open community PRs on the issue and its files; review those first. / buscá PRs comunitarios abiertos sobre el issue y sus archivos; revisá esos primero.
 3. **Before merge / Antes del merge**: run the six-fold evaluation plus cost balance in writing; hand the pros/cons package to the human; merge only on explicit approval. / corré la evaluación de seis vías más el balance de costos por escrito; entregá el paquete de pros/contras al humano; merge solo con aprobación explícita.
-4. **After merge / Después del merge**: confirm the issue closed, the class tracked, the user-facing behavior improved. / confirmá el issue cerrado, la clase rastreada, el comportamiento de usuario mejorado.
+4. **After merge / Después del merge**: confirm the user-facing behavior improved and, when there is an issue, that it closed and its class is tracked. / confirmá que el comportamiento de usuario mejoró y, si hay issue, que se cerró y su clase quedó rastreada.
 
 ## Output Contract / Contrato de salida
 
-Return: approval state and approver; community-PR search result; six-fold evaluation; cost balance; pros/cons lists; on reject, the proposed better way. The merge decision is the human's. / Devolver: estado de aprobación y aprobador; resultado de búsqueda de PRs comunitarios; evaluación de seis vías; balance de costos; listas de pros/contras; en rechazo, la vía mejor propuesta. La decisión de merge es del humano.
+Return: which optional gates apply and why; approval state and approver, or "not applicable"; community-PR search result, or "not applicable"; six-fold evaluation; cost balance; pros/cons lists; on reject, the proposed better way. The merge decision is the human's. / Devolver: qué compuertas opcionales aplican y por qué; estado de aprobación y aprobador, o "no aplica"; resultado de búsqueda de PRs comunitarios, o "no aplica"; evaluación de seis vías; balance de costos; listas de pros/contras; en rechazo, la vía mejor propuesta. La decisión de merge es del humano.
 
 ## References / Referencias
 
