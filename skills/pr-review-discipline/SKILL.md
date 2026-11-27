@@ -4,7 +4,7 @@ description: "Trigger: audit a PR, review a diff, before push, PR, or merge, app
 license: Apache-2.0
 metadata:
   author: "decode2"
-  version: "1.9"
+  version: "1.10"
 ---
 
 ## Activation Contract
@@ -40,7 +40,7 @@ Two gates are optional: they apply only when the repository works that way. Dete
 
 Before merge, run the six-fold evaluation and the cost balance in full — methodology in `references/six-fold-evaluation.md`.
 
-1. **Problem–solution fit.** Reproduce the problem, apply the PR, verify it is gone.
+1. **Problem–solution fit.** Reproduce the problem, apply the PR, verify it is gone. Failure observed = ineffective; proof missing = pending, naming the proof.
 2. **Over-engineering.** Architecture must not exceed the problem.
 3. **Side-effects.** Name each behavior added, then evaluate it; propose removal hunks-named.
 4. **User QoL guard.** Before/after as a USER: defaults, prompts, waits, errors.
@@ -57,10 +57,12 @@ Then the **cost balance**: evidenced costs on system, user, and product axes; ve
 | Approval gate applies, issue lacks `status:approved` | Present approval case → wait for explicit approval |
 | Approval gate applies: own issue, own PR, self-added label | Stop: approval is void; route to the human |
 | Community-PR gate applies, open PR covers the same files | Review and coordinate there first |
-| PR cannot demonstrate its fix | Reject as ineffective, with the better way |
+| Fix tested on the commit under review and the problem persists | Reject as ineffective, document the observed failure, with the better way |
+| Proof required to decide is missing (any environment) | Record which proof is missing; keep the merge pending |
+| Author or another reviewer supplied evidence for the commit | Evaluate it against the project's criteria; continue if it meets them |
 | Machinery beyond problem, QoL regression, shrinkable fat | Request change hunks-named; reject on insistence |
 | Change lacks the tests the repo's criteria require | Request them, naming the behaviors to cover |
-| Tests pass but prove nothing real (ritual, tautological, mock-only, wrong level) | Request rewrite or removal, tests named, with the case each should prove |
+| Tests pass but prove nothing real (ritual, tautological, mock-only, wrong level, green under a plausible regression) | Request rewrite or removal, tests named, with the case each should prove |
 | Works, but a simpler design exists | Request it; supersede only on author's decline |
 
 ## Execution Steps
